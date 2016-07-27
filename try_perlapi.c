@@ -5,7 +5,7 @@
 
 #include <EXTERN.h>
 #define PERL_EXT 1
-#include "/opt/ActivePerl-5.18/lib/CORE/perl.h"
+#include "perl.h"
 #include <Python.h>
 
 #include "try_perlapi.h"
