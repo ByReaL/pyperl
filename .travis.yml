@@ -5,8 +5,9 @@ dist: trusty
 sudo: required
 before_install:
   - sudo apt-get -qq update
-  - sudo apt-get install -y perl libperl-dev
-  - sudo apt-get install -y wget
+  - sudo ls -nl
+  - sudo apt-get install -y perl libperl-dev python-dev
+  - sudo apt-get install -y wget make gcc
   - sudo wget http://www.cpan.org/src/5.0/perl-5.24.0.tar.gz
   - sudo tar -xzf perl-5.24.0.tar.gz
   - cd perl-5.24.0
