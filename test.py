@@ -9,7 +9,7 @@ ok_re     = re.compile(r"^(not\s+)?ok\s+(\d+)$")
 
 def test_ok(f):
     expect_next = None
-    print(f, end=' ')
+    print(f )
     for i in range(20 - len(f)):
         sys.stdout.write(".")
 

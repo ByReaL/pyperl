@@ -51,8 +51,8 @@ while not (t1_done and t2_done):
 #    print '.',
 
 if count > 100: 
-     print("not ", end=' ')
+     print("not " )
 elif t1_done != 1 or t2_done != 1:
-     print("not ", end=' ')
+     print("not " )
 print("ok 1")
 

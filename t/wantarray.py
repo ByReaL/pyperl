@@ -30,7 +30,7 @@ def expect(res, expect):
     global testno
     if res != expect:
 	print("Expected", repr(expect), "got", repr(res))
-	print("not", end=' ')
+	print("not" )
     print("ok", testno)
     testno = testno + 1
 
