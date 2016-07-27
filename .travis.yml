@@ -1,0 +1,11 @@
+dist: trusty
+sudo: required
+before_install:
+  - sudo apt-get -qq update
+  - sudo cd Python-Object
+  - sudo perl Makefile.PL
+  - sudo make install
+install:
+  - pip install
+ script:
+   - test.py
