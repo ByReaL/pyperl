@@ -6,7 +6,7 @@ dist: trusty
 sudo: required
 before_install:
   - sudo apt-get -qq update
-  - sudo apt-get install -y perl libperl-dev libperl
+  - sudo apt-get install -y perl libperl-dev
   - cd Python-Object
   - sudo perl Makefile.PL
   - sudo make install
