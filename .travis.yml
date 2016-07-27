@@ -12,6 +12,6 @@ before_install:
   - sudo make install
   - cd ..
 install:
-  - pip install
+  - python setup.py install 
 script:
-  - test.py
+  - python test.py
