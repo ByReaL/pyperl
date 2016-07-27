@@ -1,3 +1,7 @@
+language: python
+python:
+  - "2.7"
+  - "3.5"
 dist: trusty
 sudo: required
 before_install:
@@ -8,5 +12,5 @@ before_install:
   - sudo make install
 install:
   - pip install
- script:
-   - test.py
+script:
+  - test.py
