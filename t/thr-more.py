@@ -39,7 +39,7 @@ def done():
 def t1():
     start()
     global inc, i0
-    if i0 != inc[0]: print("not" )
+    if i0 != inc[0]: print("not")
     print("ok 1");
     done()
 

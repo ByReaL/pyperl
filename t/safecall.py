@@ -42,7 +42,7 @@ try:
     perl.safecall("Safe1", mask, ('_compile', 'return bless {}, "Foo"'))
 except perl.PerlError as v:
     #print v
-    if not re.match('^\'bless\' trapped by operation mask', str(v)): print("not " )
+    if not re.match('^\'bless\' trapped by operation mask', str(v)): print("not ")
     print("ok 2")
 
 # The following call reset the perl parser state enought to
