@@ -147,7 +147,7 @@ ext_modules.extend(extra_ext)
 class build_perl(build):
     def run(self):
 	os.chdir('Python-Object')
-	build.spawn(self, ['/opt/ActivePerl-5.18/bin/perl','Makefile.PL', 'INSTALLDIRS=vendor'], 'Python-Object')
+	build.spawn(self, ['perl','Makefile.PL', 'INSTALLDIRS=vendor'], 'Python-Object')
 	build.spawn(self, ['make'])
 	os.chdir('..')
 	build.run(self)
