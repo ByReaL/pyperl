@@ -2,6 +2,7 @@ dist: trusty
 sudo: required
 before_install:
   - sudo apt-get -qq update
+  - sudo apt-get -y perl
   - sudo cd Python-Object
   - sudo perl Makefile.PL
   - sudo make install
