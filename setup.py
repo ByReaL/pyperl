@@ -61,6 +61,7 @@ sources = ['perlmodule.c',
            'lang_lock.c',
            'lang_map.c',
            svrv_object_c_name,
+           'pyo.c',
            'try_perlapi.c',
           ]
 
@@ -80,12 +81,6 @@ else:
         else:
             ld_extra.append(x)
 
-    p = popen(perl + ' ./objs.pl')
-    objs = p.readline()
-    for x in split(objs):
-        o_extra.append(x)
-    p.close()
-
     if not isfile("perlxsi.c"):
         system(perl + " -MExtUtils::Embed -e xsinit")
     sources.append('perlxsi.c');
@@ -99,7 +94,6 @@ else:
         cc_extra.append("-DDL_HACK")
         extra_ext.append(Extension(name = "perl",
                                    sources = ["dlhack.c"],
-                                   libraries = ["dl"],
                                    ))
         
 
@@ -120,6 +114,11 @@ if sys.platform == 'win32':
     sym_extra.append('get_thread_ctx')
     sym_extra.append('sv2pyo')
     sym_extra.append('pyo2sv')
+    sym_extra.append('newPerlPyObject_noinc')
+    sym_extra.append('newPerlPyObject_inc')
+    sym_extra.append('PerlPyObject_pyo')
+    sym_extra.append('PerlPyObject_pyo_or_null')
+    sym_extra.append('vtbl_free_pyo')
 
 if DEBUG:
     print "Macros:", macros
@@ -136,7 +135,6 @@ ext_modules.append(Extension(name = ext_name,
                              define_macros = macros,
                              include_dirs = include_dirs,
                              extra_compile_args = cc_extra,
-                             
                              extra_objects =  o_extra,
                              libraries = libs,
                              library_dirs = lib_dirs,
@@ -146,8 +144,8 @@ ext_modules.append(Extension(name = ext_name,
 ext_modules.extend(extra_ext)
 
 setup (name        = "pyperl",
-       version     = "1.0",
-       description = "Embed a perl interpreter",
+       version     = "1.0.1",
+       description = "Embed a Perl interpreter",
        url         = "http://www.ActiveState.com",
        author      = "ActiveState",
        author_email= "gisle@ActiveState.com",

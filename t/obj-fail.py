@@ -41,7 +41,7 @@ try:
 	perl.eval("{}").xyzzy()
 except AttributeError, v:
 	from string import find
-	if not find(str(v), "xyzzy"):
-		print v
+	if find(str(v), "xyzzy") == -1:
+		#print v
 		print "not",
 	print "ok 4"

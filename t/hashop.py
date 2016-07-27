@@ -8,30 +8,30 @@ print "ok 1"
 
 if len(h) != 0 or len(h.items()) != 0 or \
    len(h.keys()) != 0 or len(h.values()) != 0:
-	print "not ",
+    print "not ",
 print "ok 2"
 
 try:
-	print h[42]
+    print h[42]
 except TypeError, v:
-	if str(v) != 'perl hash key must be string': print "not ",
-	print "ok 3"
+    if str(v) != 'perl hash key must be string': print "not ",
+    print "ok 3"
 
 try:
-	print h["foo"]
+    print h["foo"]
 except KeyError, v:
-	if str(v) != "foo": print "not ",
-	print "ok 4"
+    if str(v) != "'foo'": print "not ",
+    print "ok 4"
 
 if h.get("foo") != None or h.get("foo", 42) != 42: print "not ",
 print "ok 5"
 
 try:
-	print h.get(42)
+    print h.get(42)
 except TypeError, v:
-	if str(v) != "get, argument 1: expected read-only buffer, int found":
-		print "not ",
-	print "ok 6"
+    if str(v) != "get() argument 1 must be string or read-only buffer, not int":
+        print "not ",
+    print "ok 6"
 
 h["foo"] = 42
 
@@ -42,10 +42,10 @@ h["bar"] = 21
 
 # here we assume a certain order, which might get broken by another hash
 # algoritim or other internal changes.  In that case fix the tests below.
-if h.keys() != ["foo", "bar"] or \
-   h.values() != [42, 21] or \
-   h.items() !=  [("foo", 42), ("bar", 21)]:
-	print "not ",
+if h.keys() != ["bar", "foo"] or \
+   h.values() != [21, 42] or \
+   h.items() !=  [("bar", 21), ("foo", 42)]:
+    print "not ",
 print "ok 8"
 
 if h.has_key("baz") or not h.has_key("bar"): print "not "

@@ -11,9 +11,7 @@ for d in dbi.available_drivers():
 		pass
 print "----"
 
-#dbh = dbi.connect("dbi:NullP:")
-
-#$dbh = DBI->connect("DBI:mysql:database=fotodb", "gisle", "",
+#$dbh = DBI->connect("DBI:mysql:database=test", "snake", "",
 #                    {
 #                      RaiseError => 1,
 #                      PrintError => 0,
@@ -21,7 +19,7 @@ print "----"
 #                    }) || die;
 
 
-dbh = dbi.connect("DBI:mysql:database=fotodb", "gisle",
+dbh = dbi.connect("DBI:mysql:database=test", "snake",
 		  RaiseError = 1,
 		  PrintError = 0,
 		  AutoCommit = 1,

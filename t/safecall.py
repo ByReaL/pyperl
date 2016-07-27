@@ -32,7 +32,7 @@ sub foo { 42; }
 """)
 
 mask = perl.call("Opcode::opset", "bless", "add")
-print perl.call_tuple("Opcode::opset_to_ops", mask)
+#print perl.call_tuple("Opcode::opset_to_ops", mask)
 
 perl.safecall("Safe1", mask, ('_compile', 'my $n = shift; print "ok $n\\n";'))
 perl.safecall("Safe1", mask, ('do', 1))
@@ -42,7 +42,7 @@ try:
     perl.safecall("Safe1", mask, ('_compile', 'return bless {}, "Foo"'))
 except perl.PerlError, v:
     #print v
-    if not re.match('^bless trapped by operation mask', str(v)): print "not ",
+    if not re.match('^\'bless\' trapped by operation mask', str(v)): print "not ",
     print "ok 2"
 
 # The following call reset the perl parser state enought to

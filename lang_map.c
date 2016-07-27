@@ -12,13 +12,7 @@
 #include "lang_lock.h"
 #include "thrd_ctx.h"
 #include "svrv_object.h"
-
-#ifdef WIN32
-extern SV* (*pnewPerlPyObject_inc)(PyObject *py);  /* From perlmodule.c */
-#define newPerlPyObject_inc(x) (*pnewPerlPyObject_inc)(x)
-#else
-extern SV* newPerlPyObject_inc(PyObject *py);  /* From Python-Object/Object.xs */
-#endif
+#include "pyo.h"
 
 /* when the pyo2sv or sv2py functions are called, both the perl and the python
  * lock need to be held.  These functions must guaranty that they will not

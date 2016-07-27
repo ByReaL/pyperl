@@ -5,7 +5,6 @@ import sys;
 perl.eval("""
 
 my $sys = Python::Import("sys");
-print $sys->version, "\n";
 print "not " unless $sys->version eq "%s";
 print "ok 1\n";
 

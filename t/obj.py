@@ -10,9 +10,9 @@ perl.eval("use TestClass")
 
 obj = perl.callm("new", "TestClass")
 
-print obj
-print type(obj)
-print repr(obj)
+#print obj
+#print type(obj)
+#print repr(obj)
 
 # Test plain method calls
 
@@ -38,14 +38,14 @@ if int(obj.hash_deref(obj.foo(), "key")) != 42: print "not",
 print "ok 4"
 
 # calling in scalar/array context
-print obj.localtime()
-print obj.localtime_tuple()
-print "----"
+#print obj.localtime()
+#print obj.localtime_tuple()
+#print "----"
 
 # callin back to python
 class Foo:
 	def foo(self, a):
-		print "method foo called with argument", a
+		#print "method foo called with argument", a
 		return 12/a
 	pass
 
@@ -57,7 +57,7 @@ print "ok 5"
 try:
    obj.callback(p_obj, "foo", 0)
 except ZeroDivisionError, v:
-   if str(v) != "integer division or modulo": print "not",
+   if str(v) != "integer division or modulo by zero": print "not",
    print "ok 6"
 
 

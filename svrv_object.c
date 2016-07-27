@@ -492,7 +492,7 @@ array_splice(AV* av, I32 offset, I32 len, I32 newlen)
     
     diff = newlen - len;
     if (newlen && !AvREAL(av) && AvREIFY(av))
-	av_reify(av);
+	Perl_av_reify(aTHX_ av);
 
 #ifdef SPLICE_DEBUG
     printf("splice(offset=%d, len=%d, diff=%d, after=%d, fill=%d, max=%d, pre=%d)\n",

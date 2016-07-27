@@ -30,9 +30,6 @@ if ($^O eq 'MSWin32') {
 	last if -f $pylib;
     }
     push(@libs, "\"$pylib\"", "..\\perlpyd.lib");
-    push(@extra,
-	 FUNCLIST => [qw(boot_Python__Object newPerlPyObject_noinc newPerlPyObject_inc)],
-	 );
 }
 
 if (@define) {

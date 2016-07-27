@@ -5,7 +5,7 @@
 A connection to the database is created and returned by the connect()
 function.  Example:
 
-  dbh = dbi.connect("DBI:mysql:database=fotodb", "username", "password"
+  dbh = dbi.connect("DBI:mysql:database=test", "username", "password"
                      RaiseError = 1,
                      PrintError = 0,
                      AutoCommit = 1,

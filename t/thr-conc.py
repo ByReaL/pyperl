@@ -28,6 +28,6 @@ time.sleep(0.5)
 thread.start_new_thread(t, (2, 2, 10))
 
 perl.eval("sleep 3")
-print "perl sleep done"
+#print "perl sleep done"
 time.sleep(4)
-print "done"
+#print "done"

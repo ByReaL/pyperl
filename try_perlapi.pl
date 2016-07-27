@@ -17,6 +17,7 @@ my $ENABLE_JMPENV = $^O ne "MSWin32";
 print C <<EOT;
 
 #include <EXTERN.h>
+#define PERL_EXT 1
 #include <perl.h>
 #include <Python.h>
 
@@ -50,7 +51,7 @@ fake_entertry()
     ENTER;
     SAVETMPS;
 
-    push_return(Nullop);
+    Perl_push_return(aTHX_ Nullop);
     PUSHBLOCK(cx, (CXt_EVAL|CXp_TRYBLOCK), PL_stack_sp);
     PUSHEVAL(cx, 0, 0);
     PL_eval_root = PL_op;
@@ -71,7 +72,7 @@ fake_leavetry(I32 oldscope)
 
         POPBLOCK(cx,newpm);
         POPEVAL(cx);
-        pop_return();
+        Perl_pop_return(aTHX);
         PL_curpm = newpm;
     }
 

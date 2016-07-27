@@ -46,5 +46,5 @@ extern void initperl()
 	    return;
 	}
     }
-    PyErr_SetString(PyExc_ImportError, "perl2.so not found");
+    PyErr_SetString(PyExc_ImportError, dlerror());
 }

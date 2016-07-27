@@ -28,6 +28,8 @@ perlmodule.pod
 perlpickle.py
 perlpyd.lib
 perlsh.py
+pyo.h
+pyo.c
 svrv_object.h
 svrv_object.c
 setup.py

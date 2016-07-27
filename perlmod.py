@@ -82,16 +82,23 @@ class PerlClass:
         return apply(perl.callm, (self.ctor, name) + args)
 
 class PerlModule:
-    def __init__(self, name):
+    def __init__(self, name, __wantarray__ = 0):
         self.name = name
+        self.wantarray = __wantarray__
 
     def __getattr__(self, name):
         if name[:2] == '__':
                 raise AttributeError, name
         perl_require(self.name)
+        wantarray = self.wantarray
+        if len(name) > 6 and name[-6:] == '_tuple':
+            name = name[:-6]
+            wantarray = 1
         full_name = self.name + "::" + name
         import perl
-        return perl.get_ref(full_name)
+        func = perl.get_ref(full_name)
+        func.__wantarray__ = wantarray
+        return func
 
     def __import__(self, funcs, namespace):
         perl_require(self.name)
@@ -105,17 +112,29 @@ class PerlModule:
 
 Perl = PerlClass()
 
+
+# Loading of perl modules
+
 INC = {}
+
+try:
+    from thread import get_ident
+except ImportError:
+    def get_ident():
+        return 1
+
 def perl_require(mod):
     # Some caching since the real 'perl.require' is a bit
     # heavy.
+    id = get_ident()
     global INC
     try:
-        return INC[mod]
+        return INC[id][mod]
     except KeyError:
         pass
     
     import perl
-    INC[mod] = perl.require(mod)
-    return INC[mod]
-
+    if not INC.has_key(id):
+        INC[id] = {}
+    INC[id][mod] = perl.require(mod)
+    return INC[id][mod]
