@@ -4,11 +4,11 @@
 try:
     import thread
 except:
-    print "1..0"
+    print("1..0")
     import sys
     sys.exit(0)
 
-print "1..1"
+print("1..1")
 import time
 import perl
 
@@ -51,8 +51,8 @@ while not (t1_done and t2_done):
 #    print '.',
 
 if count > 100: 
-     print "not ",
+     print("not ", end=' ')
 elif t1_done != 1 or t2_done != 1:
-     print "not ",
-print "ok 1"
+     print("not ", end=' ')
+print("ok 1")
 

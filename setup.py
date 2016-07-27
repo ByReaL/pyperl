@@ -54,7 +54,7 @@ if sys.platform[:3] == "win":
     import shutil
     svrv_object_c_name = "svrv_object.cpp"
     if os.path.exists(svrv_object_c_name):
-        os.chmod(svrv_object_c_name, 0777)
+        os.chmod(svrv_object_c_name, 0o777)
         os.unlink(svrv_object_c_name)
     shutil.copy("svrv_object.c", svrv_object_c_name)
 
@@ -122,13 +122,13 @@ if sys.platform == 'win32':
     sym_extra.append('vtbl_free_pyo')
 
 if DEBUG:
-    print "Macros:", macros
-    print "Include: ", include_dirs
-    print "Extra CC: ", cc_extra
-    print "Obj: ", o_extra
-    print "Libs:", libs
-    print "Lib dirs:",  lib_dirs
-    print "Extra LD: ", ld_extra
+    print("Macros:", macros)
+    print("Include: ", include_dirs)
+    print("Extra CC: ", cc_extra)
+    print("Obj: ", o_extra)
+    print("Libs:", libs)
+    print("Lib dirs:",  lib_dirs)
+    print("Extra LD: ", ld_extra)
 
 ext_modules = []
 ext_modules.append(Extension(name = ext_name,

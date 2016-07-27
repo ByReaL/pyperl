@@ -2,10 +2,10 @@
 
 import perl
 if not perl.MULTI_PERL:
-        print "1..0"
+        print("1..0")
         raise SystemExit
 
-print "1..10"
+print("1..10")
 
 import thread
 import time
