@@ -1026,7 +1026,7 @@ Exception(...)
         croak("Usage: Python::Err:Exception( [ OBJ ] )");
     switch (ix) {
     case  1: e = PyExc_Exception; break;
-    case  2: e = PyExc_StandardError; break;
+    case  2: e = PyExc_Exception; break;
     case  3: e = PyExc_ArithmeticError; break;
     case  4: e = PyExc_LookupError; break;
     case  5: e = PyExc_AssertionError; break;
