@@ -1,15 +1,15 @@
 import perl
 if perl.MULTI_PERL:
-	print("1..0")
-	raise SystemExit
+    print("1..0")
+    raise SystemExit
 
 
 try:
-	import thread
+    import thread
 except:
-	print("1..0")
-	print("Threads not supported by python")
-	raise SystemExit
+    print("1..0")
+    print("Threads not supported by python")
+    raise SystemExit
 
 print("1..1")
 import time

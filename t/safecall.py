@@ -64,5 +64,5 @@ sub Safe1::foo {
 
 
 perl.safecall("Safe1", mask, ('_compile',
-			      'foo(shift)'))
+                  'foo(shift)'))
 perl.safecall("Safe1", mask, ('do', 3))

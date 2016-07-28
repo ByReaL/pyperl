@@ -23,17 +23,17 @@ else:
 
 # try to trap exceptions
 try:
-	perl.eval("die 'Oops!'")
+    perl.eval("die 'Oops!'")
 except perl.PerlError as val:
-	if str(val)[:5] != "Oops!": print("not")
-	print("ok 4") 
+    if str(val)[:5] != "Oops!": print("not")
+    print("ok 4") 
 
 try:
-	perl.call("not_there", 3, 4)
+    perl.call("not_there", 3, 4)
 except perl.PerlError as val:
-	if str(val) != "Undefined subroutine &main::not_there called.\n":
-		print("not")
-	print("ok 5")
+    if str(val) != "Undefined subroutine &main::not_there called.\n":
+        print("not")
+    print("ok 5")
 
 
 # try calling perl function in array and scalar context
@@ -41,7 +41,7 @@ except perl.PerlError as val:
 # first define a function
 perl.eval("""
    sub foo2 {
-	wantarray ? (1, 2, 3) : 42;
+    wantarray ? (1, 2, 3) : 42;
    }
 """)
 

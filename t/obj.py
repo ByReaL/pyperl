@@ -1,7 +1,7 @@
 import perl
 #if perl.MULTI_PERL:
-#	print "1..0"
-#	raise SystemExit
+#    print "1..0"
+#    raise SystemExit
 
 print("1..6")
 
@@ -30,9 +30,9 @@ print("ok 3")
 
 obj.foo(obj.newhash("key", 42))
 try:
-	obj.dump()
+    obj.dump()
 except perl.PerlError as v:
-	print(v)
+    print(v)
 
 if int(obj.hash_deref(obj.foo(), "key")) != 42: print("not")
 print("ok 4")
@@ -44,10 +44,10 @@ print("ok 4")
 
 # callin back to python
 class Foo:
-	def foo(self, a):
-		#print "method foo called with argument", a
-		return 12/a
-	pass
+    def foo(self, a):
+        #print "method foo called with argument", a
+        return 12/a
+    pass
 
 p_obj = Foo()
 x = obj.callback(p_obj, "foo", 3)

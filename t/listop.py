@@ -1,7 +1,7 @@
 import perl
 #if perl.MULTI_PERL:
-#	print "1..0"
-#	raise SystemExit
+#    print "1..0"
+#    raise SystemExit
 
 print("1..16")
 
@@ -11,22 +11,22 @@ if a.__type__ != 'ARRAY' or a.__class__ != None: print("not")
 print("ok 1")
 
 try:
-	print(a["foo"])
+    print(a["foo"])
 except TypeError as v:
-	if str(v) != "perl array index must be integer": print("not")
-	print("ok 2")
+    if str(v) != "perl array index must be integer": print("not")
+    print("ok 2")
 
 try:
-	print(a[10])
+    print(a[10])
 except IndexError as v:
         if str(v) != "perl array index out of range": print("not")
         print("ok 3")
 
 try:
-	a[4] = 5
+    a[4] = 5
 except IndexError as v:
-	if str(v) != "perl array assignment index out of range": print("not")
-	print("ok 4")
+    if str(v) != "perl array assignment index out of range": print("not")
+    print("ok 4")
 
 a.extend(range(5))
 
@@ -54,16 +54,16 @@ print("ok 9")
 
 a.remove(3)
 try:
-	a.remove(3)
+    a.remove(3)
 except ValueError as v:
-	if str(v) != "perlarray.remove(x): x not in list": print("not")
-	print("ok 10")
+    if str(v) != "perlarray.remove(x): x not in list": print("not")
+    print("ok 10")
 
 try:
-	print(a.index(3))
+    print(a.index(3))
 except ValueError as v:
-	if str(v) != "perlarray.index(x): x not in list": print("not")
-	print("ok 11")
+    if str(v) != "perlarray.index(x): x not in list": print("not")
+    print("ok 11")
 
 # restore list
 a[3:3] = a_copy[3:4]
