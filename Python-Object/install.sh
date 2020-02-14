@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 rm -rf ./blib
 rm -rf ./Makefile
