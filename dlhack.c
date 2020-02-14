@@ -26,10 +26,10 @@ extern void initperl()
 	PyObject *v = PyList_GetItem(path, i);
 	if (!PyStr_Check(v))
 	    continue;
-	len = PyString_Size(v);
+	len = PyStr_AsUTF8AndSize(v);
 	if (len + 10 >= sizeof(buf))
 	    continue; /* Too long */
-	strcpy(buf, PyString_AsString(v));
+	strcpy(buf, PyStr_AsString(v));
 	if (buf[0] != '/')
 	    continue; /* Not absolute */
 	if (strlen(buf) != len)

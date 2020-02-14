@@ -33,7 +33,7 @@ pyo2sv(PyObject *o)
 	return newSV(0);
     }
     else if (PyStr_Check(o)) {
-	return newSVpvn(PyString_AS_STRING(o), PyString_GET_SIZE(o));
+	return newSVpvn(PyBytes_AS_STRING(o), PyBytes_GET_SIZE(o));
     }
     else if (PyInt_Check(o)) {
 	return newSViv(PyInt_AsLong(o));

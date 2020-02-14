@@ -128,7 +128,7 @@ call_perl(char *method, SV* obj, I32 gimme,
         m_obj = PyTuple_GetItem(args, 0);
         m_obj = PyObject_Str(m_obj); /* need decrement refcount after call */
         assert(PyStr_Check(m_obj));
-        method = PyString_AsString(m_obj);
+        method = PyStr_AsUTF8(m_obj);
         argfirst = 1;
     }
     else if (!obj && !arglen) {
@@ -190,7 +190,7 @@ call_perl(char *method, SV* obj, I32 gimme,
     PyObject *val;
     while (PyDict_Next(keywds, &pos, &key, &val)) {
         assert(PyStr_Check(key));
-        key_str = PyString_AsString(key);
+        key_str = PyStr_AsUTF8(key);
       
         if (key_str[0] == '_' && key_str[1] == '_')
         continue;

@@ -170,7 +170,7 @@ do_hash_kv(HV* hv, bool do_keys, bool do_values)
 	    I32 klen;
 	    char *kstr = hv_iterkey(entry, &klen);
 	    ENTER_PYTHON;
-	    k = PyString_FromStringAndSize(kstr, klen);
+	    k = PPyBytes_FromStringAndSize(kstr, klen);
 	    if (k == NULL)
 		goto FAIL;
 	    ENTER_PERL;
@@ -1157,7 +1157,7 @@ pysvrv_getattr(PySVRV *self, char *name)
     }
     else if (strcmp(name, "__methodname__") == 0) {
 	if (self->methodname)
-	    val = PyString_FromString(self->methodname);
+	    val = PyStr_FromString(self->methodname);
 	else
 	    val = Py_BuildValue(""); /* None */
     }
@@ -1168,7 +1168,7 @@ pysvrv_getattr(PySVRV *self, char *name)
 	if (SvOBJECT(sv)) {
 	    char *klass = HvNAME(SvSTASH(sv));
 	    ENTER_PYTHON;
-	    val = PyString_FromString(klass);
+	    val = PyStr_FromString(klass);
 	}
 	else {
 	    ENTER_PYTHON;
@@ -1180,7 +1180,7 @@ pysvrv_getattr(PySVRV *self, char *name)
 	ENTER_PERL;
 	tmp = sv_reftype(SvRV(self->rv), 0);
 	ENTER_PYTHON;
-	val = PyString_FromString(tmp);
+	val = PyStr_FromString(tmp);
     }
     else if (strcmp(name, "__value__") == 0) {
 	SV *sv = SvRV(self->rv);
@@ -1260,9 +1260,9 @@ pysvrv_setattr(PySVRV *self, char *name, PyObject *val)
 	if (PyStr_Check(val)) {
 	    PERL_LOCK;
 	    Safefree(self->methodname);
-	    New(998, self->methodname, PyString_GET_SIZE(val)+1, char);
-	    Copy(PyString_AS_STRING(val), self->methodname,
-		 PyString_GET_SIZE(val)+1, char);
+	    New(998, self->methodname, PyBytes_GET_SIZE(val)+1, char);
+	    Copy(PyBytes_AS_STRING(val), self->methodname,
+		 PyBytes_GET_SIZE(val)+1, char);
 	    PERL_UNLOCK;
 	    status = 0;
 	}
@@ -1273,7 +1273,7 @@ pysvrv_setattr(PySVRV *self, char *name, PyObject *val)
     }
     else if (strcmp(name, "__class__") == 0) {
 	if (PyStr_Check(val)) {
-	    char *klass = PyString_AsString(val);
+	    char *klass = PyStr_AsUTF8(val);
 	    ENTER_PERL;
 	    sv_bless(self->rv, gv_stashpv(klass, 1));
 	    ENTER_PYTHON;
@@ -1378,7 +1378,7 @@ pysvrv_repr(PySVRV *self)
     sv_catpvn(tmp_sv, ">", 1);
     ENTER_PYTHON;
 
-    o = PyString_FromStringAndSize(SvPVX(tmp_sv), SvCUR(tmp_sv));
+    o = PPyBytes_FromStringAndSize(SvPVX(tmp_sv), SvCUR(tmp_sv));
     SvREFCNT_dec(tmp_sv);
 
     ASSERT_LOCK_PYTHON;
@@ -1526,7 +1526,7 @@ pysvrv_subscript(PySVRV *self, PyObject *key)
 	if (PyStr_Check(key)) {
 	    SV** svp;
 	    ENTER_PERL;
-	    svp = hv_fetch(hv, PyString_AsString(key), PyString_Size(key), 0);
+	    svp = hv_fetch(hv, PyStr_AsUTF8(key), PyStr_AsUTF8AndSize(key), 0);
 	    if (svp) {
 		SvGETMAGIC(*svp);
 		PYTHON_LOCK;
@@ -1620,8 +1620,8 @@ pysvrv_ass_sub(PySVRV *self, PyObject *key, PyObject *val)
     else if (SvTYPE(sv) == SVt_PVHV) {
 	HV* hv = (HV*)sv;
 	if (PyStr_Check(key)) {
-	    char *key_str = PyString_AsString(key);
-	    int   key_len = PyString_Size(key);
+	    char *key_str = PyStr_AsUTF8(key);
+	    int   key_len = PyStr_AsUTF8AndSize(key);
 	    if (val) {
 		SV* val_sv;
 		SV** svp;
