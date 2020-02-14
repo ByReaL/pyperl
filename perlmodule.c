@@ -690,20 +690,20 @@ array(self, args, keywds)
         PERL_LOCK;
 
         if (item) {
-        SV* item_sv = pyo2sv(item);
-        if (!av_store(av, i, item_sv)) {
-            SvREFCNT_dec(item_sv);
-            SvREFCNT_dec(av);
-            PERL_UNLOCK;
-            PyErr_SetString(PyExc_RuntimeError, "av_store failed");
-            ASSERT_LOCK_PYTHON;
-            return NULL;
-        }
+            SV* item_sv = pyo2sv(item);
+            if (!av_store(av, i, item_sv)) {
+                SvREFCNT_dec(item_sv);
+                SvREFCNT_dec(av);
+                PERL_UNLOCK;
+                PyErr_SetString(PyExc_RuntimeError, "av_store failed");
+                ASSERT_LOCK_PYTHON;
+                return NULL;
+            }
         }
         else {
-        if (PyErr_ExceptionMatches(PyExc_IndexError)) {
-            PyErr_Clear();
-            break;
+            if (PyErr_ExceptionMatches(PyExc_IndexError)) {
+                PyErr_Clear();
+                break;
         }
         /* Something else bad happened */
         SvREFCNT_dec(av);
@@ -778,11 +778,19 @@ MODULE_INIT_FUNC(perl)
         "perl",                 /* m_name */
         NULL,                   /* m_doc */
         -1,                     /* m_size */
-        PerlMethods            /* m_methods */
+        PerlMethods,            /* m_methods */
+        NULL,                   /* m_reload */
+        NULL,                   /* m_traverse */
+        NULL,                   /* m_clear */
+        NULL,                   /* m_free */
     };
 
     m = PyModule_Create(&moduledef);
+    if (m == NULL)
+        return NULL;
     d = PyModule_GetDict(m);
+    if (d == NULL)
+        return NULL;
     PerlError = PyErr_NewException("perl.PerlError", NULL, NULL);
     PyDict_SetItemString(d, "PerlError", PerlError);
 #ifdef MULTI_PERL
