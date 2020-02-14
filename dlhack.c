@@ -26,7 +26,7 @@ extern void initperl()
 	PyObject *v = PyList_GetItem(path, i);
 	if (!PyStr_Check(v))
 	    continue;
-	len = PyStr_AsUTF8AndSize(v);
+	len = PyBytes_Size(v);
 	if (len + 10 >= sizeof(buf))
 	    continue; /* Too long */
 	strcpy(buf, PyStr_AsString(v));
