@@ -550,7 +550,7 @@ PyObject_Str(o,...)
      PERL_LOCK;
      if (str_o && PyStr_Check(str_o)) {
     RETVAL = newSVpvn(PyStr_AsString(str_o),
-              PyString_Size(str_o));    
+              PyBytes_Size(str_o));    
      }
      else {
     RETVAL = newSV(0);
@@ -766,7 +766,7 @@ PyEval_CallObjectWithKeywords(o,...)
                         val_sv = hv_iterval(hv, entry);
 
                         ENTER_PYTHON;
-                        key = PyString_FromStringAndSize(kstr, klen);
+                        key = PyStr_FromStringAndSize(kstr, klen);
                         if (key == NULL)
                             goto done;
 
