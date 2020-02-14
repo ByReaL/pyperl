@@ -1,5 +1,13 @@
 #!/bin/env bash
 
+rm -rf __pycache__
+rm -rf build
+rm -rf __pycache__
+rm -rf __pycache__
+rm -rf __pycache__
+rm -rf __pycache__
+
+
 #saving curent working directory
 CWD=$(pwd)
 
