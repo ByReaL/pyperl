@@ -32,7 +32,7 @@ typedef struct {
 
 extern PyTypeObject SVRVtype;
 
-#define PySVRV_Check(v)  ((v)->ob_type == &SVRVtype)
+#define PySVRV_Check(v)  (Py_TYPE(v) == &SVRVtype)
 #define PySVRV_RV(v)     (((PySVRV*)(v))->rv)
 
 PyObject* PySVRV_New(SV* rv);
