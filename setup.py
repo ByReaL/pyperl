@@ -20,7 +20,7 @@ perl_ldopts = p.readline()
 p.close()
 
 ext_name     = "perl"
-include_dirs = []
+include_dirs = ['./py3c/include']
 macros       = []
 cc_extra     = []
 
@@ -92,10 +92,14 @@ else:
     if dlsrc == "dlsrc='dl_dlopen.xs';\n":
         ext_name = "perl2"
         cc_extra.append("-DDL_HACK")
-        extra_ext.append(Extension(name = "perl",
-                                   sources = ["dlhack.c"],
-                   libraries= ["dl"],
-                                   ))
+        extra_ext.append(
+                         Extension(
+                                    name = "perl",
+                                    sources = ["dlhack.c"],
+                                    libraries= ["dl"],
+                                    include_dirs = ['./py3c/include'],
+                                   )
+                        )
 
 
 if MULTI_PERL:
@@ -180,7 +184,7 @@ class my_install(install):
         install.run(self)
 
 setup (name        = "pyperl",
-       version     = "1.0.1",
+       version     = "1.0.3",
        description = "Embed a Perl interpreter",
        url         = "http://www.ActiveState.com",
        author      = "ActiveState",
