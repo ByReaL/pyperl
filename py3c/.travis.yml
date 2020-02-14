@@ -1,0 +1,24 @@
+language: python
+
+python:
+  - "2.7"
+  - "3.4"
+  - "3.5"
+  - "3.5"
+  - "3.6"
+  - "3.7"
+  - "nightly"
+
+env:
+    - TEST_USE_CPP=no CFLAGS="-Werror -Wall -std=c90 -Wno-error=strict-aliasing"
+    - TEST_USE_CPP=no CFLAGS="-Werror -Wall -std=c99 -Wno-error=strict-aliasing"
+    - TEST_USE_CPP=yes CFLAGS="-Werror -Wall -Wno-error=strict-aliasing"
+
+matrix:
+  exclude:
+  - python: "nightly"
+    env: TEST_USE_CPP=no CFLAGS="-Werror -Wall -std=c90 -Wno-error=strict-aliasing"
+
+script: make test-python
+
+sudo: false
