@@ -451,7 +451,7 @@ PyObject_DelItem(o, key)
      RETVAL
 
 int
-PyObject_Compare(o1, o2)
+PyObject_RichCompareBool(o1, o2, op)
      PyObject *o1
      PyObject *o2
    PREINIT:
@@ -459,7 +459,7 @@ PyObject_Compare(o1, o2)
    CODE:
      ASSERT_LOCK_PERL;
      ENTER_PYTHON;
-     RETVAL = PyObject_Compare(o1, o2);
+     RETVAL = PyObject_RichCompareBool(o1, o2, Py_NE);
      if (RETVAL == -1 && PyErr_Occurred())
     croak_on_py_exception();
      ENTER_PERL;
