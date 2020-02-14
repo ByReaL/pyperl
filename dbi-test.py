@@ -3,7 +3,7 @@
 import dbi
 
 for d in dbi.available_drivers():
-    print(d);
+    print(d)
     try:
         for s in dbi.data_sources(d):
             print("  %s" % s)
@@ -36,7 +36,8 @@ print(rows)
 
 while 1:
     row = sth.fetchrow_tuple()
-        if not row: break
+    if not row: 
+        break
     print(row)
 
 dbh.disconnect()
