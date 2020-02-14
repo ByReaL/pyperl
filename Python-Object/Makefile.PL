@@ -35,6 +35,8 @@ if (@libs) {
     }
 }
 
+$pyinc = $pyinc . ' -I../py3c/include';
+
 WriteMakefile(
     NAME	 => 'Python::Object',
     VERSION_FROM => 'Object.pm',
