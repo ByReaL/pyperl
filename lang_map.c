@@ -14,7 +14,7 @@
 #include "svrv_object.h"
 #include "pyo.h"
 
-#include "py3c.h"
+#include <py3c.h>
 
 /* when the pyo2sv or sv2py functions are called, both the perl and the python
  * lock need to be held.  These functions must guaranty that they will not

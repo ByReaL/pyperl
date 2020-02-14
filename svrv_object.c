@@ -18,7 +18,7 @@ extern "C" {
 #include "lang_map.h"
 #include "try_perlapi.h"
 
-#include "py3c.h"
+#include <py3c.h>
 
 #ifdef MULTI_PERL
 static int

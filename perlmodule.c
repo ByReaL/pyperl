@@ -13,7 +13,7 @@
 #include "lang_lock.h"
 #include "lang_map.h"
 
-#include "py3c.h"
+#include <py3c.h>
 
 static PyObject *PerlError;
 extern void xs_init (pTHXo);

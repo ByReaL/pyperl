@@ -1,7 +1,7 @@
 #include <Python.h>
 #include <dlfcn.h>
 
-#include "py3c.h"
+#include <py3c.h>
 
 /* This is a fake perl module that will look for the real thing ('perl2.so')
  * in sys.path and then load this one with the RTLD_GLOBAL set in order to
