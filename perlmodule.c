@@ -13,6 +13,8 @@
 #include "lang_lock.h"
 #include "lang_map.h"
 
+#include "py3c.h"
+
 static PyObject *PerlError;
 extern void xs_init (pTHXo);
 
@@ -125,7 +127,7 @@ call_perl(char *method, SV* obj, I32 gimme,
         }
         m_obj = PyTuple_GetItem(args, 0);
         m_obj = PyObject_Str(m_obj); /* need decrement refcount after call */
-        assert(PyString_Check(m_obj));
+        assert(PyStr_Check(m_obj));
         method = PyString_AsString(m_obj);
         argfirst = 1;
     }
@@ -187,7 +189,7 @@ call_perl(char *method, SV* obj, I32 gimme,
     char *key_str;
     PyObject *val;
     while (PyDict_Next(keywds, &pos, &key, &val)) {
-        assert(PyString_Check(key));
+        assert(PyStr_Check(key));
         key_str = PyString_AsString(key);
       
         if (key_str[0] == '_' && key_str[1] == '_')

@@ -18,6 +18,8 @@ extern "C" {
 #include "lang_map.h"
 #include "try_perlapi.h"
 
+#include "py3c.h"
+
 #ifdef MULTI_PERL
 static int
 owned_by(PySVRV *self, refcounted_perl *my_perl)
@@ -1255,7 +1257,7 @@ pysvrv_setattr(PySVRV *self, char *name, PyObject *val)
 	status = 0;
     }
     else if (strcmp(name, "__methodname__") == 0) {
-	if (PyString_Check(val)) {
+	if (PyStr_Check(val)) {
 	    PERL_LOCK;
 	    Safefree(self->methodname);
 	    New(998, self->methodname, PyString_GET_SIZE(val)+1, char);
@@ -1270,7 +1272,7 @@ pysvrv_setattr(PySVRV *self, char *name, PyObject *val)
 	}
     }
     else if (strcmp(name, "__class__") == 0) {
-	if (PyString_Check(val)) {
+	if (PyStr_Check(val)) {
 	    char *klass = PyString_AsString(val);
 	    ENTER_PERL;
 	    sv_bless(self->rv, gv_stashpv(klass, 1));
@@ -1521,7 +1523,7 @@ pysvrv_subscript(PySVRV *self, PyObject *key)
     }
     else if (SvTYPE(sv) == SVt_PVHV) {
 	HV* hv = (HV*)sv;
-	if (PyString_Check(key)) {
+	if (PyStr_Check(key)) {
 	    SV** svp;
 	    ENTER_PERL;
 	    svp = hv_fetch(hv, PyString_AsString(key), PyString_Size(key), 0);
@@ -1617,7 +1619,7 @@ pysvrv_ass_sub(PySVRV *self, PyObject *key, PyObject *val)
     }
     else if (SvTYPE(sv) == SVt_PVHV) {
 	HV* hv = (HV*)sv;
-	if (PyString_Check(key)) {
+	if (PyStr_Check(key)) {
 	    char *key_str = PyString_AsString(key);
 	    int   key_len = PyString_Size(key);
 	    if (val) {

@@ -14,6 +14,8 @@
 #include "svrv_object.h"
 #include "pyo.h"
 
+#include "py3c.h"
+
 /* when the pyo2sv or sv2py functions are called, both the perl and the python
  * lock need to be held.  These functions must guaranty that they will not
  * trigger execution of any perl or python code (like stringify overload or
@@ -30,7 +32,7 @@ pyo2sv(PyObject *o)
     if (o == Py_None) {
 	return newSV(0);
     }
-    else if (PyString_Check(o)) {
+    else if (PyStr_Check(o)) {
 	return newSVpvn(PyString_AS_STRING(o), PyString_GET_SIZE(o));
     }
     else if (PyInt_Check(o)) {

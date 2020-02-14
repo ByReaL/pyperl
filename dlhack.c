@@ -1,6 +1,8 @@
 #include <Python.h>
 #include <dlfcn.h>
 
+#include "py3c.h"
+
 /* This is a fake perl module that will look for the real thing ('perl2.so')
  * in sys.path and then load this one with the RTLD_GLOBAL set in order to
  * make the symbols available for extension modules that perl might load.
@@ -22,7 +24,7 @@ extern void initperl()
     npath = PyList_Size(path);
     for (i = 0; i < npath; i++) {
 	PyObject *v = PyList_GetItem(path, i);
-	if (!PyString_Check(v))
+	if (!PyStr_Check(v))
 	    continue;
 	len = PyString_Size(v);
 	if (len + 10 >= sizeof(buf))
