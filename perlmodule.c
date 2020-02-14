@@ -743,9 +743,9 @@ static PyMethodDef PerlMethods[] = {
 
 void
 #ifdef DL_HACK
-initperl2()
+MODULE_INIT_FUNC(perl2)
 #else
-initperl()
+MODULE_INIT_FUNC(perl)
 #endif
 {
     PyObject *m, *d;
@@ -773,8 +773,15 @@ initperl()
      * in perl?  Should we also destruct my_perl?  A good idea if
      * python itself was embedded before we imported perl.
      */
+    static struct PyModuleDef moduledef = {
+        PyModuleDef_HEAD_INIT,  /* m_base */
+        "perl",                 /* m_name */
+        NULL,                   /* m_doc */
+        -1,                     /* m_size */
+        PerlMethods            /* m_methods */
+    };
 
-    m = Py_InitModule("perl", PerlMethods);
+    m = PyModule_Create(&moduledef);
     d = PyModule_GetDict(m);
     PerlError = PyErr_NewException("perl.PerlError", NULL, NULL);
     PyDict_SetItemString(d, "PerlError", PerlError);
@@ -783,4 +790,5 @@ initperl()
 #else
     PyDict_SetItemString(d, "MULTI_PERL", PyInt_FromLong(0));
 #endif
+    return m;
 }
