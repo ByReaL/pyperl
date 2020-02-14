@@ -12,6 +12,8 @@
 #include "../thrd_ctx.h"
 #include "../pyo.h"
 
+#include <py3c.h>
+
 /* so we can use different typemaps for borrowed/owned obj refs */
 typedef PyObject NewPyObject;
 typedef PyObject NewPyObjectX;
@@ -546,8 +548,8 @@ PyObject_Str(o,...)
      ENTER_PYTHON;
      str_o = (ix == 1) ? PyObject_Str(o) : PyObject_Repr(o);
      PERL_LOCK;
-     if (str_o && PyString_Check(str_o)) {
-    RETVAL = newSVpvn(PyString_AsString(str_o),
+     if (str_o && PyStr_Check(str_o)) {
+    RETVAL = newSVpvn(PyStr_AsString(str_o),
               PyString_Size(str_o));    
      }
      else {
@@ -934,9 +936,9 @@ as_string(self,...)
     str = PyObject_Str(self->type);
         PERL_LOCK;
     RETVAL = newSVpv("", 0);
-        if (str && PyString_Check(str)) {
+        if (str && PyStr_Check(str)) {
         sv_catpv(RETVAL, "python.");
-            sv_catpv(RETVAL, PyString_AsString(str));
+            sv_catpv(RETVAL, PyStr_AsString(str));
         }
         else
             sv_catpv(RETVAL, "python");
@@ -946,11 +948,11 @@ as_string(self,...)
 
         if (self->value &&
             (str = PyObject_Str(self->value)) &&
-            PyString_Check(str))
+            PyStr_Check(str))
         {
         PERL_LOCK;
             sv_catpv(RETVAL, ": ");
-            sv_catpv(RETVAL, PyString_AsString(str));
+            sv_catpv(RETVAL, PyStr_AsString(str));
             PERL_UNLOCK;
         }
         Py_XDECREF(str);
